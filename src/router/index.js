@@ -24,7 +24,7 @@ const routes = [
   {
     path: '/',
     name: 'Accounts',
-    component: Accounts
+    component: Accounts,
   },
   {
     path: '/count',
@@ -47,5 +47,17 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.length === 0) {
+//     from.name ? next({ name: from.name }) : next('/')
+//   } else {
+//     next()
+//   }
+// })
+// router.afterEach((to, from) => {
+//   console.log(to);//到达的路由
+//   console.log(from);//离开的路由
+// })
 
 export default router

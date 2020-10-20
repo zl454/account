@@ -107,12 +107,24 @@ export default {
       flag: true,
       account: "0",
       note: "", //备注
-      type: "+" //收入支出
+      type: "+", //收入支出
     };
   },
   mounted() {
     this.initialTag();
   },
+  // beforeRouteEnter(to, from, next) {
+  //   console.log(to);
+  //   console.log(from);
+  //   console.log("进入Accounts");
+  //   next();
+  // },
+  // beforeRouteLeave(to, from, next) {
+  //   console.log(to);
+  //   console.log(from);
+  //   console.log("离开Accounts");
+  //   next();
+  // },
   methods: {
     ...mapMutations(["addRecord", "initialTag"]),
     typeNumber(e) {
@@ -148,7 +160,7 @@ export default {
       if (this.selectedList.length === 0) {
         Toast({
           message: "请至少选中一个标签",
-          position: top
+          position: top,
         });
         return;
       }
@@ -162,20 +174,20 @@ export default {
         account: Math.round(this.account * 100) / 100,
         notes: this.note || "",
         tags: list.join(","),
-        date: new Date().toJSON()
+        date: new Date().toJSON(),
       });
       this.clearNumber();
       this.selectedList.length = 0;
       setTimeout(() => {
         this.flag = true;
       }, 16);
-    }
+    },
   },
   computed: mapState(["tagsList", "selectedList"]),
   components: {
-    Tags
+    Tags,
     // Panel
-  }
+  },
 };
 </script>
 
@@ -185,16 +197,19 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
+
 .accounts-container {
   position: fixed;
   bottom: 60px;
   width: 100%;
 }
+
 .tags-container > span {
   padding: 5px 20px;
   margin: 5px 10px;
   cursor: pointer;
 }
+
 .van-cell {
   background-color: #f5f5f5;
 }
@@ -210,6 +225,7 @@ export default {
   align-items: center;
   background-color: #eee;
 }
+
 .calculator {
   display: grid;
   grid-template-areas:
@@ -224,6 +240,7 @@ export default {
   padding: 12px;
   /* border-radius: 50%; */
 }
+
 .calculator button {
   margin: 6px;
   padding: 0;
@@ -243,10 +260,12 @@ export default {
   box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1),
     4px 4px 10px -8px rgba(0, 0, 0, 0.3);
 }
+
 .calculator button:active {
   box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1) inset,
     4px 4px 10px -8px rgba(0, 0, 0, 0.3) inset;
 }
+
 .result {
   text-align: right;
   width: 100vw;
