@@ -4,7 +4,7 @@
       round
       v-for="(item, index) in tagsList"
       :key="index"
-      @click="tagSelect"
+      @click="selectTags"
     >{{item}}</van-tag>
 
   </div>
@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     ...mapMutations(["initialTag"]),
-    tagSelect(e) {
+    selectTags(e) {
       //选中标签，获取标签列表
       if (!e.target.selected) {
         e.target.selected = true;

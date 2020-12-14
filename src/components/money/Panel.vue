@@ -1,10 +1,9 @@
 <template>
   <div class="panel-container">
-
     <div
       class="result"
       style="grid-area:result"
-    >{{output}}</div>
+    >{{account}}</div>
     <div class="calculator">
       <button
         style="grid-area:number-1"
@@ -67,48 +66,62 @@
     </div>
   </div>
 </template>
-
 <script>
 import { mapMutations } from "vuex";
 export default {
   data() {
     return {
-      output: "0"
+      account: "0"
     };
   },
   methods: {
     ...mapMutations(["addRecord"]),
-    typeNumber(e) {
       //输入金额
+    typeNumber(e) {
       const input = e.target.textContent;
-      if (this.output.length === 16) return;
-      if (this.output === "0") {
-        if ("0123456789".indexOf(input) >= 0) {
-          this.output = input;
-        } else {
-          this.output += input;
-        }
-        return;
-      }
-      if (this.output.indexOf(".") >= 0 && input === ".") {
-        return;
-      }
-      this.output += input;
+      if (this.account.length >= 10||(~this.account.indexOf(".")&&(input === "."||this.account.split('.')[1].length>1))) return;
+      if (this.account === "0")  return this.account = input;
+      this.account += input;
     },
     deleteNumber() {
       //删除
-      const length = this.output.length;
-      if (length === 1) return (this.output = "0");
-      this.output = this.output.substr(0, length - 1);
+      const length = this.account.length;
+      if (length === 1) return (this.account = "0");
+      this.account = this.account.substr(0, length - 1);
     },
     clearNumber() {
       //清空
-      this.output = "0";
+      this.account = "0";
+      this.note = "";
     },
     calculateNumber() {
       // 添加记录
-      this.addRecord(this.output);
+      this.addRecord(this.account);
       this.clearNumber();
+      // if (this.selectedList.length === 0) {
+      //   Toast({
+      //     message: "请至少选中一个标签",
+      //     position: top,
+      //   });
+      //   return;
+      // }
+      // this.flag = false;
+      // let list = [];
+      // for (let key in this.selectedList) {
+      //   list.push(this.selectedList[key]);
+      // }
+      // this.addRecord({
+      //   type: this.type,
+      //   account: Math.round(this.account * 100) / 100,
+      //   notes: this.note || "",
+      //   tags: list.join(","),
+      //   date: new Date().toJSON(),
+      // });
+      // this.clearNumber();
+      // this.selectedList.length = 0;
+      // setTimeout(() => {
+      //   this.flag = true;
+      // }, 16);
     }
   }
 };
@@ -127,7 +140,7 @@ export default {
   align-items: center;
   background-color: #eee;
 }
-/* .output {
+/* .account {
   font-size: 36px;
   font-family: Consolas, monospace;
   padding: 9px 16px;

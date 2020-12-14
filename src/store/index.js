@@ -9,24 +9,65 @@ export default new Vuex.Store({
   state: {
     recordList: JSON.parse(localStorage.getItem("recordList") || "[]"),//记录清单
     tagsList: JSON.parse(localStorage.getItem("tagsList") || "[]"),//标签清单
-    selectedList: [], //选中标签清单
+    currentData: {//当前输入的数据
+      tags: [], //选中标签清单
+      note: '',//备注
+      account: 0,//数据
+      type: '+',//收入支出
+    }
     // id: parseInt(window.localStorage.getItem("_lastId") || "0") || 0//标签最后id
   },
   mutations: {
-    addRecord(state, record) {//添加记录
-      if (!record) return
-      if (record.account == 0) {
+    changeType(state, type) {
+      // 修改收入支出类型
+      state.currentData.type = type
+    },
+    changeNote(state, note) {
+      // 修改备注信息
+      state.currentData.note = note
+    },
+    addRecord(state) {//添加记录
+      if (state.currentData.tags.length === 0) {
         Toast({
-          message: '你好没有输入金额哦',
-          position: top
+          message: "请至少选中一个标签",
+          position: top,
         });
-        return
+        return;
       }
-      state.recordList.push(record)
-      Toast({
-        message: '记账成功',
-        position: top
+      this.flag = false;
+      let list = [];
+      for (let key in this.selectedList) {
+        list.push(this.selectedList[key]);
+      }
+      this.addRecord({
+        type: this.type,
+        account: Math.round(this.account * 100) / 100,
+        notes: this.note || "",
+        tags: list.join(","),
+        date: new Date().toJSON(),
       });
+      this.clearNumber();
+      this.selectedList.length = 0;
+      setTimeout(() => {
+        this.flag = true;
+      }, 16);
+
+
+
+
+      // if (!record) return
+      // if (record.account == 0) {
+      //   Toast({
+      //     message: '你好没有输入金额哦',
+      //     position: top
+      //   });
+      //   return
+      // }
+      // state.recordList.push(record)
+      // Toast({
+      //   message: '记账成功',
+      //   position: top
+      // });
       localStorage.setItem("recordList", JSON.stringify(state.recordList))
     },
     delectedRecord(state, index) {//删除记录
@@ -39,6 +80,7 @@ export default new Vuex.Store({
       const tags = ["衣", "食", "住", "行", "工作"]
       state.tagsList = tags
       localStorage.setItem("tagsList", JSON.stringify(state.tagsList))
+
     },
     createTag(state, newTag) {//添加新标签
       let flag = false
