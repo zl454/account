@@ -4,6 +4,7 @@ import Accounts from '../views/Accounts.vue'
 import Count from '../views/Count.vue'
 import Label from '../views/Label.vue'
 import EditLabel from '../views/EditLabel.vue'
+import QRcode from '../views/QRcode.vue'
 
 Vue.use(VueRouter)
 
@@ -38,6 +39,11 @@ const routes = [
     component: Label
   },
   {
+    path: '/qrcode',
+    name: 'QRcode',
+    component: QRcode
+  },
+  {
     path: "/label/edit/:id",
     component: EditLabel,
     props: true
@@ -59,5 +65,17 @@ const router = new VueRouter({
 //   console.log(to);//到达的路由
 //   console.log(from);//离开的路由
 // })
+
+
+router.beforeEach((to, from, next) => {
+  const flag = navigator.userAgent.match(
+    /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+  )
+    ? 0
+    : 1;
+  if (to.name === 'Accounts' && flag) next({ name: 'QRcode' })
+  next()
+})
+
 
 export default router

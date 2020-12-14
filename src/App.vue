@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <QRcode
+    <!-- <QRcode
       v-if="flag"
-    />
+    /> -->
     <transition mode="out-in">
       <router-view />
     </transition>
@@ -37,11 +37,11 @@
 </template>
 
 <script>
-import  QRcode  from "./components/QRcode"
+// import  QRcode  from "./components/QRcode"
 export default {
-  components: {
-    QRcode,
- },
+//   components: {
+//     QRcode,
+//  },
   data() {
     return {
       flag: false,
