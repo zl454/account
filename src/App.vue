@@ -1,12 +1,8 @@
 <template>
   <div id="app">
-    <div
+    <QRcode
       v-if="flag"
-      id="code"
-    >
-      <h2 style="color:yellow">请使用手机扫一扫体验</h2>
-    <QRCanvas :options="options"/>
-    </div>
+    />
     <transition mode="out-in">
       <router-view />
     </transition>
@@ -41,27 +37,14 @@
 </template>
 
 <script>
-import { QRCanvas } from 'qrcanvas-vue';
+import  QRcode  from "./components/QRcode"
 export default {
   components: {
- QRCanvas,
+    QRcode,
  },
   data() {
     return {
       flag: false,
-      options:{
-        cellSize: 8,
-        padding:8,
-        correctLevel: 'L',
-        foreground: 'blue',
-        data:'http://zl.flynn.cool/account/',
-        logo:{
-          text:'轻松记',
-          options: {
-          color: 'dodgerblue',
-            }
-          }
-      }
     };
   },
   created() {
@@ -100,19 +83,6 @@ export default {
   background-color: #f5f5f5;
   border-top: 1px solid #cbcbcb;
 }
-#code {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  z-index: 999;
-  cursor: pointer;
-}
 .van-icon {
   font-size: 24px;
 }
@@ -122,6 +92,7 @@ export default {
 }
 .van-tabbar-item--active {
   color: #409eff;
+  height: 100%;
 }
 
 /* 动画效果 */
