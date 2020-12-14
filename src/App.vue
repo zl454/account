@@ -4,17 +4,8 @@
       v-if="flag"
       id="code"
     >
-      <h2 style="color:yellow">请使用手机扫一扫体验
-        <!-- <van-button
-          icon="cross"
-          round
-          hairline
-          type="primary  "
-          @click="flag=false"
-        /> -->
-      </h2>
-      <img src="./image/code.png">
-
+      <h2 style="color:yellow">请使用手机扫一扫体验</h2>
+    <QRCanvas :options="options"/>
     </div>
     <transition mode="out-in">
       <router-view />
@@ -50,17 +41,27 @@
 </template>
 
 <script>
-// 局部引用Tabbar标签栏
-/* import Vue from "vue";
-import "vant/lib/button/style";
-import { Tabbar, TabbarItem } from "vant";
-Vue.use(Tabbar);
-Vue.use(TabbarItem); */
-
+import { QRCanvas } from 'qrcanvas-vue';
 export default {
+  components: {
+ QRCanvas,
+ },
   data() {
     return {
-      flag: false
+      flag: false,
+      options:{
+        cellSize: 8,
+        padding:8,
+        correctLevel: 'L',
+        foreground: 'blue',
+        data:'http://zl.flynn.cool/account/',
+        logo:{
+          text:'轻松记',
+          options: {
+          color: 'dodgerblue',
+            }
+          }
+      }
     };
   },
   created() {
