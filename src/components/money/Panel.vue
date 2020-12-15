@@ -96,7 +96,7 @@ export default {
     },
     calculateNumber() {
       // 添加记录
-      this.addRecord(this.account);
+      this.addRecord();
       this.clearNumber();
       // if (this.selectedList.length === 0) {
       //   Toast({

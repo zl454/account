@@ -35,39 +35,13 @@ export default new Vuex.Store({
         return;
       }
       this.flag = false;
-      let list = [];
-      for (let key in this.selectedList) {
-        list.push(this.selectedList[key]);
-      }
-      this.addRecord({
-        type: this.type,
-        account: Math.round(this.account * 100) / 100,
-        notes: this.note || "",
-        tags: list.join(","),
-        date: new Date().toJSON(),
-      });
-      this.clearNumber();
-      this.selectedList.length = 0;
+      state.recordList.push(state.currentData)
+      // this.clearNumber();
+      state.currentData.tags.length = 0;
       setTimeout(() => {
         this.flag = true;
       }, 16);
 
-
-
-
-      // if (!record) return
-      // if (record.account == 0) {
-      //   Toast({
-      //     message: '你好没有输入金额哦',
-      //     position: top
-      //   });
-      //   return
-      // }
-      // state.recordList.push(record)
-      // Toast({
-      //   message: '记账成功',
-      //   position: top
-      // });
       localStorage.setItem("recordList", JSON.stringify(state.recordList))
     },
     delectedRecord(state, index) {//删除记录

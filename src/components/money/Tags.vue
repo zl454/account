@@ -4,7 +4,7 @@
       round
       v-for="(item, index) in tagsList"
       :key="index"
-      @click="selectTags"
+      @click="tagSelect"
     >{{item}}</van-tag>
 
   </div>
@@ -21,21 +21,21 @@ export default {
   },
   methods: {
     ...mapMutations(["initialTag"]),
-    selectTags(e) {
+    tagSelect(e) {
       //选中标签，获取标签列表
       if (!e.target.selected) {
         e.target.selected = true;
-        this.selectedList.push(e.target.textContent);
+        this.currentData.tags.push(e.target.textContent);
         e.target.style.backgroundColor = "#5A5A5A";
         return;
       }
       e.target.selected = false;
-      let index = this.selectedList.indexOf(e.target.textContent);
-      this.selectedList.splice(index, 1);
+      let index = this.currentData.tags.indexOf(e.target.textContent);
+      this.currentData.tags.splice(index, 1);
       e.target.style.backgroundColor = "";
     }
   },
-  computed: mapState(["tagsList", "selectedList"])
+  computed: mapState(["tagsList", "currentData"])
 };
 </script>
 <style scoped>
