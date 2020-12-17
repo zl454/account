@@ -54,26 +54,19 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.length === 0) {
-//     from.name ? next({ name: from.name }) : next('/')
-//   } else {
-//     next()
-//   }
-// })
-// router.afterEach((to, from) => {
-//   console.log(to);//到达的路由
-//   console.log(from);//离开的路由
-// })
-
-
+// 全局路由前置守卫，识别非移动端状态下页面跳转到二维码页面
 router.beforeEach((to, from, next) => {
+  // 识别到设备为移动端的时候 flag 为 false
   const flag = navigator.userAgent.match(
     /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
   )
-    ? 0
-    : 1;
-  if (to.name === 'Accounts' && flag) next({ name: 'QRcode' })
+    ? false
+    : true;
+  if (to.name !== "QRcode" && flag) {
+    next({ name: 'QRcode' })
+  } else if (to.name === "QRcode" && !flag) {
+    next({ name: "Accounts" })
+  }
   next()
 })
 

@@ -12,7 +12,7 @@ export default new Vuex.Store({
     currentData: {//当前输入的数据
       tags: [], //选中标签清单
       note: '',//备注
-      account: 0,//数据
+      account: '0',//数据
       type: '+',//收入支出
     }
     // id: parseInt(window.localStorage.getItem("_lastId") || "0") || 0//标签最后id
@@ -32,7 +32,7 @@ export default new Vuex.Store({
           message: "请至少选中一个标签",
           position: top,
         });
-        return;
+        return false;
       }
       this.flag = false;
       state.recordList.push(state.currentData)
@@ -41,8 +41,14 @@ export default new Vuex.Store({
       setTimeout(() => {
         this.flag = true;
       }, 16);
-
       localStorage.setItem("recordList", JSON.stringify(state.recordList))
+      Toast({
+        message: "添加成功",
+        position: top,
+      });
+      state.currentData.account = 0
+      state.currentData.tags = []
+      return true
     },
     delectedRecord(state, index) {//删除记录
       state.recordList.splice(index, 1)
@@ -96,4 +102,7 @@ export default new Vuex.Store({
   },
   modules: {
   }
+
+
+
 })

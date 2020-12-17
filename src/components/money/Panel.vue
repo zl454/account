@@ -67,7 +67,7 @@
   </div>
 </template>
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations,mapState } from "vuex";
 export default {
   data() {
     return {
@@ -79,8 +79,9 @@ export default {
       //输入金额
     typeNumber(e) {
       const input = e.target.textContent;
-      if (this.account.length >= 10||(~this.account.indexOf(".")&&(input === "."||this.account.split('.')[1].length>1))) return;
-      if (this.account === "0")  return this.account = input;
+      const data=this.account
+      if (data.length >= 10||(~data.indexOf(".")&&(input === "."||data.split('.')[1].length>1))) return;
+      if (data === "0")  return this.account = input;
       this.account += input;
     },
     deleteNumber() {
@@ -92,38 +93,17 @@ export default {
     clearNumber() {
       //清空
       this.account = "0";
-      this.note = "";
     },
     calculateNumber() {
       // 添加记录
-      this.addRecord();
+      this.currentData.account=this.account
+      console.log(this.addRecord());
       this.clearNumber();
-      // if (this.selectedList.length === 0) {
-      //   Toast({
-      //     message: "请至少选中一个标签",
-      //     position: top,
-      //   });
-      //   return;
-      // }
-      // this.flag = false;
-      // let list = [];
-      // for (let key in this.selectedList) {
-      //   list.push(this.selectedList[key]);
-      // }
-      // this.addRecord({
-      //   type: this.type,
-      //   account: Math.round(this.account * 100) / 100,
-      //   notes: this.note || "",
-      //   tags: list.join(","),
-      //   date: new Date().toJSON(),
-      // });
-      // this.clearNumber();
-      // this.selectedList.length = 0;
-      // setTimeout(() => {
-      //   this.flag = true;
-      // }, 16);
-    }
-  }
+    },
+  },
+    computed: {
+      ...mapState(['currentData'])
+    },
 };
 </script>
 
