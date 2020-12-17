@@ -11,31 +11,35 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      selecteList:[]
+    };
   },
-  mounted() {
-    this.initialTag();
-  },
-  methods: {
-    ...mapMutations(["initialTag"]),
-    tagSelect(e) {
-      //选中标签，获取标签列表
-      if (!e.target.selected) {
-        e.target.selected = true;
-        this.currentData.tags.push(e.target.textContent);
-        e.target.style.backgroundColor = "#5A5A5A";
-        return;
-      }
-      e.target.selected = false;
-      let index = this.currentData.tags.indexOf(e.target.textContent);
-      this.currentData.tags.splice(index, 1);
-      e.target.style.backgroundColor = "";
+  props:{
+    tagsList:{
+      type:Array
     }
   },
-  computed: mapState(["tagsList", "currentData"])
+  methods: {
+    tagSelect(e) {
+      //选中标签，获取标签列表
+      const target=e.target
+      if (!target.selected) {
+        target.selected = true;
+        this.selecteList.push(target.textContent);
+        target.classList.add("tags-bg")
+        
+      }else{
+        target.selected = false;
+      let index = this.selecteList.indexOf(target.textContent);
+      this.selecteList.splice(index, 1);
+      target.classList.remove("tags-bg")
+      }
+      this.$emit('update-taglist',this.selecteList)
+    }
+  },
 };
 </script>
 <style scoped>
@@ -43,5 +47,8 @@ export default {
   padding: 5px 15px;
   margin: 5px 5px;
   cursor: pointer;
+}
+.tags-bg{
+  background-color: #5A5A5A;
 }
 </style>
