@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     accountList: JSON.parse(localStorage.getItem("accountList") || "[]"),//记录清单
     tagsList: JSON.parse(localStorage.getItem("tagsList") || "[]"),//标签清单
+    isMobile: false
   },
   mutations: {
     addAccount(state, list) {//添加记录

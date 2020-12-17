@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <!-- <QRcode
-      v-if="flag"
-    /> -->
     <transition mode="out-in">
       <router-view />
     </transition>
@@ -36,31 +33,6 @@
   </div>
 </template>
 
-<script>
-// import  QRcode  from "./components/QRcode"
-export default {
-//   components: {
-//     QRcode,
-//  },
-  data() {
-    return {
-      flag: false,
-    };
-  },
-  created() {
-    this.isMobile();
-  },
-  methods: {
-    isMobile() {
-      this.flag = navigator.userAgent.match(
-        /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-      )
-        ? 0
-        : 1;
-    }
-  }
-};
-</script>
 
 <style>
 #app {
