@@ -4,7 +4,7 @@
       round
       v-for="(item, index) in tagsList"
       :key="index"
-      @click="tagSelect"
+      @click="updateSelecteList"
     >{{item}}</van-tag>
 
   </div>
@@ -14,31 +14,30 @@
 export default {
   data() {
     return {
-      selecteList:[]
+      selecteList: [],
     };
   },
-  props:{
-    tagsList:{
-      type:Array
-    }
+  props: {
+    tagsList: {
+      type: Array,
+    },
   },
   methods: {
-    tagSelect(e) {
+    updateSelecteList(e) {
       //选中标签，获取标签列表
-      const target=e.target
+      const target = e.target;
       if (!target.selected) {
         target.selected = true;
         this.selecteList.push(target.textContent);
-        target.classList.add("tags-bg")
-        
-      }else{
+        target.classList.add("tags-bg");
+      } else {
         target.selected = false;
-      let index = this.selecteList.indexOf(target.textContent);
-      this.selecteList.splice(index, 1);
-      target.classList.remove("tags-bg")
+        let index = this.selecteList.indexOf(target.textContent);
+        this.selecteList.splice(index, 1);
+        target.classList.remove("tags-bg");
       }
-      this.$emit('update-taglist',this.selecteList)
-    }
+      this.$emit("update-taglist", this.selecteList);
+    },
   },
 };
 </script>
@@ -48,7 +47,7 @@ export default {
   margin: 5px 5px;
   cursor: pointer;
 }
-.tags-bg{
-  background-color: #5A5A5A;
+.tags-bg {
+  background-color: #5a5a5a;
 }
 </style>

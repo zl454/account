@@ -12,10 +12,8 @@ export default new Vuex.Store({
   },
   mutations: {
     addAccount(state, list) {//添加记录
-
       state.accountList.push(list)
       localStorage.setItem("accountList", JSON.stringify(state.accountList))
-
     },
     delectedRecord(state, index) {//删除记录
       state.recordList.splice(index, 1)

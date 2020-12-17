@@ -19,11 +19,11 @@
       id="tabs"
     >
       <van-tab
-        name="+"
+        name="收入"
         title="收入"
       ></van-tab>
       <van-tab
-        name="-"
+        name="支出"
         title="支出"
       ></van-tab>
     </van-tabs>
@@ -47,7 +47,7 @@ export default {
       selecteList: [], //选中的标签
       account: "0",
       note: "", //备注
-      type: "+", //收入支出
+      type: "收入", //收入支出
     };
   },
   mounted() {
@@ -55,6 +55,7 @@ export default {
   },
   methods: {
     ...mapMutations(["addAccount", "initialTag", "changeNote"]),
+    // 更新选中的标签列表
     updateTagList(e) {
       this.selecteList = e;
     },
