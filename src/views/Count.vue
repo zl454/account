@@ -104,7 +104,7 @@ export default {
       loading: "",
       finished: "",
       incomeList: [],
-      spendngList: []
+      spendngList: [],
     };
   },
   mounted() {
@@ -113,19 +113,19 @@ export default {
   methods: {
     ...mapMutations(["delectedRecord"]),
     init() {
-      this.recordList.forEach(item => {
-        if (item.type == "+") {
+      this.accountList.forEach((item) => {
+        if (item.type == "收入") {
           let date = item.date.split("T")[0];
-          if (this.incomeList.length < 1) {
+          if (!this.incomeList.length) {
             this.incomeList.push({
               items: [item],
-              createAt: date,
-              total: +item.account
+              date: date,
+              total: +item.account,
             });
             return;
           }
           let flag = false;
-          this.incomeList.some(items => {
+          this.incomeList.some((items) => {
             if (items.createAt === date) {
               items.items.push(item);
               items.total += 1 * item.account;
@@ -137,21 +137,21 @@ export default {
             this.incomeList.push({
               items: [item],
               createAt: date,
-              total: +item.account
+              total: +item.account,
             });
         }
-        if (item.type == "-") {
+        if (item.type == "支出") {
           let date = item.date.split("T")[0];
           if (this.spendngList.length < 1) {
             this.spendngList.push({
               items: [item],
               createAt: date,
-              total: +item.account
+              total: +item.account,
             });
             return;
           }
           let flag = false;
-          this.spendngList.some(items => {
+          this.spendngList.some((items) => {
             if (items.createAt === date) {
               items.items.push(item);
               items.total += 1 * item.account;
@@ -163,7 +163,7 @@ export default {
             this.spendngList.push({
               items: [item],
               createAt: date,
-              total: +item.account
+              total: +item.account,
             });
         }
       });
@@ -194,9 +194,9 @@ export default {
       if (itemDate == yesterday) return "昨天";
       if (itemDate == beforeYesterday) return "前天";
       return itemDate;
-    }
+    },
   },
-  computed: mapState(["recordList"])
+  computed: mapState(["accountList"]),
 };
 </script>
 

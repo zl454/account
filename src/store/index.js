@@ -56,10 +56,10 @@ export default new Vuex.Store({
       state.tagsList.splice(index, 1)
       localStorage.setItem("tagsList", JSON.stringify(state.tagsList))
     },
-    IDGenerator(state) {
-      state.id++
-      localStorage.setItem("_lastId", JSON.stringify(state.id))
-      return state.id
-    }
+    // IDGenerator(state) {
+    //   state.id++
+    //   localStorage.setItem("_lastId", JSON.stringify(state.id))
+    //   return state.id
+    // }
   },
 })
