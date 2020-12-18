@@ -20,12 +20,12 @@
         @confirm="addtags"
         show-cancel-button
       >
-        <p style="padding:10px">
-          <label>请输入新标签：<input
-              type=""
-              name=""
-              v-model="value"
-            ></label>
+        <p style="padding:20px">
+          <input
+            type=""
+            name=""
+            v-model="value"
+          >
         </p>
       </van-dialog>
     </div>
@@ -77,7 +77,6 @@ export default {
 }
 div.label-container-btn {
   text-align: center;
-  /* padding: 25px 0 40px; */
   padding: 24px 0;
 }
 </style>

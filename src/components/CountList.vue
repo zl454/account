@@ -89,6 +89,7 @@ export default {
   align-items: center;
   background: white;
   cursor: pointer;
+  border-bottom: 1px dashed #ebede0;
 }
 .notes {
   font-size: 14px;
