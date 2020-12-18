@@ -121,9 +121,12 @@ export default {
           accounts[flag].data.push(item);
         }
       });
-      this.incomeList.sort((pre, next) => dayjs(pre.date).isBefore(next.date));
+      // 列表排序
+      this.incomeList.sort((pre, next) =>
+        dayjs(pre.date).isBefore(dayjs(next.date)) ? 1 : -1
+      );
       this.spendingList.sort((pre, next) =>
-        dayjs(pre.date).isBefore(next.date)
+        dayjs(pre.date).isBefore(dayjs(next.date)) ? 1 : -1
       );
     },
     delectedAccounts(date) {
@@ -146,7 +149,9 @@ export default {
       return val.toFixed(2);
     },
   },
-  computed: mapState(["accountList"]),
+  computed: {
+    ...mapState(["accountList"]),
+  },
 };
 </script>
 

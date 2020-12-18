@@ -4,13 +4,13 @@
       title="编辑标签"
       left-arrow
       border
-      @click-left="goBack"
+      @click-left="$router.go(-1)"
     />
     <van-field
       class="note"
       v-model="value"
       @keyup='tagChange'
-      label="标签名"
+      label="标签名："
     />
     <div class="editlabel-container-btn">
       <van-button
@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       value: "",
-      flag: true
+      flag: true,
     };
   },
   created() {
@@ -49,27 +49,24 @@ export default {
       if (this.tagsList.length === 1) {
         Toast({
           message: "请至少保留一个标签！！！",
-          position: top
+          position: top,
         });
         return;
       }
       this.delecteTag(this.id);
       Toast({
         message: '标签 "' + this.value + '" 删除成功',
-        position: top
+        position: top,
       });
-      this.goBack();
+      this.$router.go(-1);
     },
     modifyTags() {
       //修改标签
-      this.modifyTag({ name: this.value, index: this.id });
+      this.modifyTag({ name: this.value.trim(), index: this.id });
       Toast({
         message: "标签修改成功",
-        position: top
+        position: top,
       });
-      this.goBack();
-    },
-    goBack() {
       this.$router.go(-1);
     },
     init() {
@@ -81,10 +78,10 @@ export default {
       }
       if (this.value !== this.tagsList[this.id]) return (this.flag = false);
       this.flag = true;
-    }
+    },
   },
   computed: mapState(["tagsList"]),
-  props: ["id"]
+  props: ["id"],
 };
 </script>
 

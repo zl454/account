@@ -43,6 +43,14 @@
   color: #2c3e50;
   overflow-x: hidden;
 }
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
 #nav {
   height: 60px;
