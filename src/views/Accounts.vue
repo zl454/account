@@ -1,6 +1,7 @@
 <template>
   <div class="accounts-container">
     <Tags
+      :key="key"
       :tagsList="tagsList"
       @update-taglist="updateTagList"
     />
@@ -30,6 +31,7 @@ export default {
       account: "0",
       note: "", //备注
       type: "收入", //收入支出
+      key: 0,
     };
   },
   mounted() {
@@ -80,6 +82,7 @@ export default {
       });
       this.account = "0";
       this.note = "";
+      this.key += 1;
     },
     changeType(e) {
       this.type = e;

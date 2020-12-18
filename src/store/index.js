@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import dayjs from 'dayjs'
 import { Toast } from "vant";
 Vue.use(Toast);
 Vue.use(Vuex)
@@ -19,7 +19,6 @@ export default new Vuex.Store({
     deleteAccount(state, index) {//删除记录
       state.accountList.splice(index, 1)
       localStorage.setItem("accountList", JSON.stringify(state.accountList))
-      location.reload()
     },
     initialTag(state) {//初始化标签
       if (state.tagsList.length > 0) return
@@ -56,10 +55,43 @@ export default new Vuex.Store({
       state.tagsList.splice(index, 1)
       localStorage.setItem("tagsList", JSON.stringify(state.tagsList))
     },
-    // IDGenerator(state) {
-    //   state.id++
-    //   localStorage.setItem("_lastId", JSON.stringify(state.id))
-    //   return state.id
-    // }
   },
+  getters: {
+    initData: state => {
+      let incomeList = []
+      let spendingList = []
+      state.accountList.forEach((item) => {
+        let accounts = [];
+        if (item.type === "收入") accounts = incomeList;
+        if (item.type === "支出") accounts = spendingList;
+        // console.log(accounts);
+        // 在清单中查找日期，未找到返回-1
+        const date = dayjs(item.date).format("YYYY-MM-DD");
+        const flag = accounts.findIndex((i) => i.date === date);
+        if (!~flag) {
+          // 没找到，在accounts中 push 新的数据对象
+          accounts.push({
+            date: date,
+            data: [item],
+            total: item.account,
+          });
+        } else {
+          // 找到了
+          accounts[flag].total = (
+            1 * accounts[flag].total +
+            1 * item.account
+          ).toFixed(2);
+          accounts[flag].data.push(item);
+        }
+      });
+      // 列表排序
+      incomeList.sort((pre, next) =>
+        dayjs(pre.date).isBefore(dayjs(next.date)) ? 1 : -1
+      );
+      spendingList.sort((pre, next) =>
+        dayjs(pre.date).isBefore(dayjs(next.date)) ? 1 : -1
+      );
+      return [incomeList, spendingList]
+    }
+  }
 })

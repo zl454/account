@@ -47,7 +47,7 @@ import dayjs from "dayjs";
 export default {
   data() {
     return {
-      activeName: "",
+      activeName: "1",
     };
   },
   props: {
