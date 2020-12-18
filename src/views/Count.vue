@@ -1,6 +1,11 @@
 <template>
   <div class="count-container">
-    <van-tabs
+    <Tabs @change-type="changeType" />
+    <CountList
+      @delected-account="delectedAccounts"
+      :lists="this.type==='收入'?this.incomeList:this.spendingList"
+    />
+    <!-- <van-tabs
       animated
       line-width="50%"
       color="#409EFF"
@@ -11,46 +16,7 @@
         name="+"
         title="收入"
       >
-        <van-collapse
-          v-if="incomeList.length"
-          v-model="activeName"
-          accordion
-        >
-          <van-collapse-item
-            v-for="(item, index) in incomeList"
-            :key="index"
-            :name="index"
-          >
-            <template #title>
-              <h2 class="title">
-                {{getDate(item.date)}}
-                <span>
-                  总计: <span class="number">¥ {{item.total}}</span>
-                </span>
-              </h2>
-            </template>
-            <ol>
-              <li
-                class="record"
-                v-for="i in item.data"
-                :key="i.date"
-                @click="delectedRecords(i.date)"
-              >
-                <span>{{String(i.tags)}}</span>
-                <span class="notes">{{i.note}}</span>
-                <span class="number"> {{i.account}}</span>
-              </li>
-            </ol>
-          </van-collapse-item>
-        </van-collapse>
 
-        <div
-          class="fallback"
-          v-else
-        >
-          您还没有任何收入记录哟~ <br />快去记账页面开始吧
-
-        </div>
       </van-tab>
       <van-tab
         name="-"
@@ -83,7 +49,7 @@
               >
                 <span>{{String(i.tags)}}</span>
                 <span class="notes">{{i.note}}</span>
-                <span class="number"> {{i.account}}</span>
+                <span class="number">¥ {{i.account}}</span>
               </li>
             </ol>
           </van-collapse-item>
@@ -97,12 +63,14 @@
         </div>
 
       </van-tab>
-    </van-tabs>
+    </van-tabs> -->
   </div>
 
 </template>
 
 <script>
+import Tabs from "../components/Tabs";
+import CountList from "../components/CountList";
 import { mapState, mapMutations } from "vuex";
 import dayjs from "dayjs";
 export default {
@@ -110,6 +78,7 @@ export default {
     return {
       activeName: "",
       activeName1: "",
+      type: "收入",
       loading: "",
       finished: "",
       incomeList: [],
@@ -119,8 +88,12 @@ export default {
   mounted() {
     this.init();
   },
+  components: { Tabs, CountList },
   methods: {
     ...mapMutations(["deleteAccount"]),
+    changeType(e) {
+      this.type = e;
+    },
     init() {
       this.accountList.forEach((item) => {
         // console.log(item);
@@ -152,7 +125,7 @@ export default {
         dayjs(pre.date).isBefore(next.date)
       );
     },
-    delectedRecords(date) {
+    delectedAccounts(date) {
       let boolean = confirm("是否删除记录");
       if (boolean) {
         this.accountList.some((item, index) => {
@@ -160,17 +133,7 @@ export default {
         });
       }
     },
-    getDate(date) {
-      //根据日期得出今天，昨天，前天
-      const isToday = require("dayjs/plugin/isToday");
-      const isYesterday = require("dayjs/plugin/isYesterday");
-      dayjs.extend(isToday);
-      dayjs.extend(isYesterday);
 
-      if (dayjs(date).isToday()) return "今天";
-      if (dayjs(date).isYesterday()) return "昨天";
-      return date;
-    },
     total(data) {
       console.log("aaa");
       let val = 0;
@@ -188,37 +151,5 @@ export default {
   height: 100%;
   margin-bottom: 64px;
   background-color: #f5f5f5;
-}
-.title {
-  margin: 10px 0;
-  padding: 0 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.record {
-  padding: 0 16px;
-  min-height: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  cursor: pointer;
-}
-.notes {
-  font-size: 14px;
-  margin-right: auto;
-  margin-left: 16px;
-  color: #999999;
-}
-.income .number {
-  color: #009900;
-}
-.outcome .number {
-  color: #cc0000;
-}
-.fallback {
-  padding: 16px;
-  text-align: center;
 }
 </style>
