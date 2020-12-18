@@ -6,11 +6,12 @@
     >{{account}}</div>
     <div class="calculator">
       <button
-        v-for="item in btn" :key="item[0]"
+        v-for="item in btn"
+        :key="item[0]"
         :style="`grid-area:${item[0]}`"
         @click="clickHandler"
       >{{item[1]}}</button>
-      
+
     </div>
   </div>
 </template>
@@ -18,33 +19,51 @@
 export default {
   data() {
     return {
-      btn:[['number1',1],['number2',2],['number3',3],['del',"删除"],['number4',4],['number5',5],['number6',6],['ac','清空'],['number7',7],['number8',8],['number9',9],['ok','OK'],['number0',0],['dot','.']]
-    }
+      btn: [
+        ["number1", 1],
+        ["number2", 2],
+        ["number3", 3],
+        ["del", "删除"],
+        ["number4", 4],
+        ["number5", 5],
+        ["number6", 6],
+        ["ac", "清空"],
+        ["number7", 7],
+        ["number8", 8],
+        ["number9", 9],
+        ["ok", "OK"],
+        ["number0", 0],
+        ["dot", "."],
+      ],
+    };
   },
-  props:{
-    account:{
-      type:String,
-      default:"0"
-    }
+  props: {
+    account: {
+      type: String,
+      default: "0",
+    },
   },
   methods: {
-      //输入金额
-      clickHandler(e){
-        const content=e.target.textContent;
-        if(content==='删除')return this.$emit('change-account','删除')
-        if(content==='清空')return this.$emit('change-account','清空')
-        if(content==='OK')return this.$emit('change-account','OK')
-        this.typeNumber(content)
-      },
+    //输入金额
+    clickHandler(e) {
+      const content = e.target.textContent;
+      if (content === "删除") return this.$emit("change-account", "删除");
+      if (content === "清空") return this.$emit("change-account", "清空");
+      if (content === "OK") return this.$emit("change-account", "OK");
+      this.typeNumber(content);
+    },
     typeNumber(content) {
-      const data=this.account
-      if (data.length >= 10||(~data.indexOf(".")&&(content === "."||data.split('.')[1].length>1))) return;
-      if (data === "0") {
-        if(content==='.')return
-        return this.$emit("change-account",content);
-      }
-      this.$emit("change-account",data+content)
-    }
+      const data = this.account;
+      if (
+        data.length >= 10 ||
+        (~data.indexOf(".") &&
+          (content === "." || data.split(".")[1].length > 1))
+      )
+        return;
+      if (data === "0" && content !== ".")
+        return this.$emit("change-account", content);
+      this.$emit("change-account", data + content);
+    },
   },
 };
 </script>
