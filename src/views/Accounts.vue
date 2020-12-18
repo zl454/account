@@ -11,22 +11,7 @@
         v-model="note"
       />
     </van-cell-group>
-    <van-tabs
-      line-width="50%"
-      color="#409EFF"
-      background="#F5F5F5"
-      v-model="type"
-      id="tabs"
-    >
-      <van-tab
-        name="收入"
-        title="收入"
-      ></van-tab>
-      <van-tab
-        name="支出"
-        title="支出"
-      ></van-tab>
-    </van-tabs>
+    <Tabs @change-type="changeType" />
     <Panel
       :account="account"
       @change-account="changeAccount"
@@ -41,6 +26,7 @@ Vue.use(Toast);
 import dayjs from "dayjs";
 import { mapMutations, mapState } from "vuex";
 import Tags from "../components/money/Tags";
+import Tabs from "../components/Tabs";
 import Panel from "../components/money/Panel";
 export default {
   data() {
@@ -97,6 +83,9 @@ export default {
       this.account = "0";
       this.note = "";
     },
+    changeType(e) {
+      this.type = e;
+    },
   },
   computed: {
     ...mapState(["tagsList"]),
@@ -104,6 +93,7 @@ export default {
   components: {
     Tags,
     Panel,
+    Tabs,
   },
 };
 </script>

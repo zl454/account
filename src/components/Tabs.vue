@@ -3,11 +3,17 @@
     line-width="50%"
     color="#409EFF"
     background="#F5F5F5"
-    v-model="active"
+    v-model="type"
     id="tabs"
   >
-    <van-tab title="收入"></van-tab>
-    <van-tab title="支出"></van-tab>
+    <van-tab
+      name="收入"
+      title="收入"
+    ></van-tab>
+    <van-tab
+      name="支出"
+      title="支出"
+    ></van-tab>
   </van-tabs>
 </template>
 
@@ -15,9 +21,14 @@
 export default {
   data() {
     return {
-      active: "0"
+      type: "收入",
     };
-  }
+  },
+  watch: {
+    type: function () {
+      this.$emit("change-type", this.type);
+    },
+  },
 };
 </script>
 <style scoped>
