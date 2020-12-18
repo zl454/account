@@ -2,8 +2,9 @@
   <van-cell-group>
     <van-field
       v-model="value"
-      label="备注"
+      label="备注："
       placeholder="请输入备注"
+      @change="$emit('change-note',value)"
     />
   </van-cell-group>
 </template>
@@ -13,7 +14,7 @@ export default {
   data() {
     return { value: "" };
   },
-  methods: {}
+  methods: {},
 };
 </script>
 <style scoped>

@@ -957,10 +957,10 @@
   resolved "https://registry.npm.taobao.org/@types/q/download/@types/q-1.5.4.tgz?cache=0&sync_timestamp=1605055213197&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fq%2Fdownload%2F%40types%2Fq-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
   integrity sha1-FZJUFOCtLNdlv+9YhC9+JqesyyQ=
 
-"@vant/icons@1.4.0":
-  version "1.4.0"
-  resolved "https://registry.npm.taobao.org/@vant/icons/download/@vant/icons-1.4.0.tgz#a91f7894f2f34356f78a5d6f8b9d4f1a46add0c5"
-  integrity sha1-qR94lPLzQ1b3il1vi51PGkat0MU=
+"@vant/icons@1.5.0":
+  version "1.5.0"
+  resolved "https://registry.npm.taobao.org/@vant/icons/download/@vant/icons-1.5.0.tgz?cache=0&sync_timestamp=1608190068028&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vant%2Ficons%2Fdownload%2F%40vant%2Ficons-1.5.0.tgz#ce78a2f055a1a4099129bb6c44d54584f3740e27"
+  integrity sha1-znii8FWhpAmRKbtsRNVFhPN0Dic=
 
 "@vant/popperjs@^1.0.0":
   version "1.0.2"
@@ -8156,13 +8156,13 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vant@^2.8.4:
-  version "2.11.2"
-  resolved "https://registry.npm.taobao.org/vant/download/vant-2.11.2.tgz?cache=0&sync_timestamp=1607649719808&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvant%2Fdownload%2Fvant-2.11.2.tgz#239c5ccac9de2764b405affad408c69db0b09da0"
-  integrity sha1-I5xcysneJ2S0Ba/61AjGnbCwnaA=
+vant@^2.11.2:
+  version "2.11.3"
+  resolved "https://registry.npm.taobao.org/vant/download/vant-2.11.3.tgz?cache=0&sync_timestamp=1608282033258&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvant%2Fdownload%2Fvant-2.11.3.tgz#fc88d59cbaacdc07e9b189b00a85253522e97cd4"
+  integrity sha1-/IjVnLqs3AfpsYmwCoUlNSLpfNQ=
   dependencies:
     "@babel/runtime" "7.x"
-    "@vant/icons" "1.4.0"
+    "@vant/icons" "1.5.0"
     "@vant/popperjs" "^1.0.0"
     "@vue/babel-helper-vue-jsx-merge-props" "^1.0.0"
     vue-lazyload "1.2.3"

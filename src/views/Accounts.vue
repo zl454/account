@@ -4,13 +4,7 @@
       :tagsList="tagsList"
       @update-taglist="updateTagList"
     />
-    <van-cell-group>
-      <van-field
-        label="备注"
-        placeholder="请输入备注"
-        v-model="note"
-      />
-    </van-cell-group>
+    <Note @change-note="changeNote" />
     <Tabs @change-type="changeType" />
     <Panel
       :account="account"
@@ -27,6 +21,7 @@ import dayjs from "dayjs";
 import { mapMutations, mapState } from "vuex";
 import Tags from "../components/money/Tags";
 import Tabs from "../components/Tabs";
+import Note from "../components/Note";
 import Panel from "../components/money/Panel";
 export default {
   data() {
@@ -45,6 +40,9 @@ export default {
     // 更新选中的标签列表
     updateTagList(e) {
       this.selecteList = e;
+    },
+    changeNote(e) {
+      this.note = e;
     },
     changeAccount(e) {
       if (e === "删除") return this.deleteAccount();
@@ -94,6 +92,7 @@ export default {
     Tags,
     Panel,
     Tabs,
+    Note,
   },
 };
 </script>
