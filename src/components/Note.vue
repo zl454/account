@@ -1,5 +1,5 @@
 <template>
-  <van-cell-group>
+  <van-cell-group class="note-container">
     <van-field
       v-model="value"
       label="备注："
@@ -18,6 +18,10 @@ export default {
 };
 </script>
 <style scoped>
+.note-container {
+  padding: 10px 0;
+  background-color: #f5f5f5;
+}
 .van-cell {
   background-color: #f5f5f5;
 }
