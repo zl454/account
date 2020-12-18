@@ -11,34 +11,39 @@
         name="+"
         title="收入"
       >
-        <ol
-          class="outcome"
-          v-if="incomeList.length>0"
+        <van-collapse
+          v-if="incomeList.length"
+          v-model="activeName"
+          accordion
         >
-          <li
-            :key="index"
+          <van-collapse-item
             v-for="(item, index) in incomeList"
+            :key="index"
+            :name="index"
           >
-            <h2 class="title">
-              {{getDate(item.createAt)}}
-              <span>
-                总计: <span class="number">¥ {{Math.round(item.total*100)/100}}</span>
-              </span>
-            </h2>
+            <template #title>
+              <h2 class="title">
+                {{getDate(item.date)}}
+                <span>
+                  总计: <span class="number">¥ {{item.total}}</span>
+                </span>
+              </h2>
+            </template>
             <ol>
               <li
-                :key="item.date"
                 class="record"
-                v-for="item in item.items"
+                v-for="i in item.data"
+                :key="i.date"
                 @click="delectedRecords(item.date)"
               >
-                <span>{{item.tags}}</span>
-                <span class="notes">{{item.notes}}</span>
-                <span class="number"> {{item.account}}</span>
+                <span>{{String(i.tags)}}</span>
+                <span class="notes">{{i.note}}</span>
+                <span class="number"> {{i.account}}</span>
               </li>
             </ol>
-          </li>
-        </ol>
+          </van-collapse-item>
+        </van-collapse>
+
         <div
           class="fallback"
           v-else
@@ -52,35 +57,38 @@
         name="-"
         title="支出"
       >
-        <ol
-          class="outcome"
-          v-if="spendngList.length>0"
+        <van-collapse
+          v-if="spendingList.length"
+          v-model="activeName1"
+          accordion
         >
-          <li
+          <van-collapse-item
+            v-for="(item, index) in spendingList"
             :key="index"
-            v-for="(item, index) in spendngList"
+            :name="index"
           >
-            <h2 class="title">
-              {{getDate(item.createAt)}}
-              <span>
-                总计: <span class="number">¥ {{Math.round(item.total*100)/100}}</span>
-              </span>
-            </h2>
+            <template #title>
+              <h2 class="title">
+                {{getDate(item.date)}}
+                <span>
+                  总计: <span class="number">¥ {{item.total}}</span>
+                </span>
+              </h2>
+            </template>
             <ol>
               <li
-                :key="item.date"
                 class="record"
-                v-for="item in item.items"
-                :id="item.date"
+                v-for="i in item.data"
+                :key="i.date"
                 @click="delectedRecords(item.date)"
               >
-                <span>{{item.tags}}</span>
-                <span class="notes">{{item.notes}}</span>
-                <span class="number">- {{item.account}}</span>
+                <span>{{String(i.tags)}}</span>
+                <span class="notes">{{i.note}}</span>
+                <span class="number"> {{i.account}}</span>
               </li>
             </ol>
-          </li>
-        </ol>
+          </van-collapse-item>
+        </van-collapse>
         <div
           class="fallback"
           v-else
@@ -97,14 +105,16 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 export default {
   data() {
     return {
+      activeName: "",
+      activeName1: "",
       loading: "",
       finished: "",
       incomeList: [],
-      spendngList: [],
+      spendingList: [],
     };
   },
   mounted() {
@@ -114,61 +124,34 @@ export default {
     ...mapMutations(["delectedRecord"]),
     init() {
       this.accountList.forEach((item) => {
-        if (item.type == "收入") {
-          let date = item.date.split("T")[0];
-          if (!this.incomeList.length) {
-            this.incomeList.push({
-              items: [item],
-              date: date,
-              total: +item.account,
-            });
-            return;
-          }
-          let flag = false;
-          this.incomeList.some((items) => {
-            if (items.createAt === date) {
-              items.items.push(item);
-              items.total += 1 * item.account;
-              flag = true;
-              return true;
-            }
+        // console.log(item);
+        let accounts = [];
+        if (item.type === "收入") accounts = this.incomeList;
+        if (item.type === "支出") accounts = this.spendingList;
+        // console.log(accounts);
+        // 在清单中查找日期，未找到返回-1
+        const date = dayjs(item.date).format("YYYY-MM-DD");
+        const flag = accounts.findIndex((i) => i.date === date);
+        if (!~flag) {
+          // 没找到，在accounts中 push 新的数据对象
+          accounts.push({
+            date: date,
+            data: [item],
+            total: item.account,
           });
-          if (!flag)
-            this.incomeList.push({
-              items: [item],
-              createAt: date,
-              total: +item.account,
-            });
-        }
-        if (item.type == "支出") {
-          let date = item.date.split("T")[0];
-          if (this.spendngList.length < 1) {
-            this.spendngList.push({
-              items: [item],
-              createAt: date,
-              total: +item.account,
-            });
-            return;
-          }
-          let flag = false;
-          this.spendngList.some((items) => {
-            if (items.createAt === date) {
-              items.items.push(item);
-              items.total += 1 * item.account;
-              flag = true;
-              return true;
-            }
-          });
-          if (!flag)
-            this.spendngList.push({
-              items: [item],
-              createAt: date,
-              total: +item.account,
-            });
+        } else {
+          // 找到了
+          accounts[flag].total = (
+            1 * accounts[flag].total +
+            1 * item.account
+          ).toFixed(2);
+          accounts[flag].data.push(item);
         }
       });
-      this.incomeList.reverse();
-      this.spendngList.reverse();
+      this.incomeList.sort((pre, next) => dayjs(pre.date).isBefore(next.date));
+      this.spendingList.sort((pre, next) =>
+        dayjs(pre.date).isBefore(next.date)
+      );
     },
     delectedRecords(date) {
       let boolean = confirm("是否删除记录");
@@ -181,19 +164,22 @@ export default {
         });
       }
     },
-    getDate(itemDate) {
+    getDate(date) {
       //根据日期得出今天，昨天，前天
-      let today = new Date().toJSON().split("T")[0];
-      let yesterday = new Date(+new Date() - 24 * 3600 * 1000)
-        .toJSON()
-        .split("T")[0];
-      let beforeYesterday = new Date(+new Date() - 48 * 3600 * 1000)
-        .toJSON()
-        .split("T")[0];
-      if (itemDate == today) return "今天";
-      if (itemDate == yesterday) return "昨天";
-      if (itemDate == beforeYesterday) return "前天";
-      return itemDate;
+      const isToday = require("dayjs/plugin/isToday");
+      const isYesterday = require("dayjs/plugin/isYesterday");
+      dayjs.extend(isToday);
+      dayjs.extend(isYesterday);
+
+      if (dayjs(date).isToday()) return "今天";
+      if (dayjs(date).isYesterday()) return "昨天";
+      return date;
+    },
+    total(data) {
+      console.log("aaa");
+      let val = 0;
+      data.forEach((item) => (val += Number(item.account)));
+      return val.toFixed(2);
     },
   },
   computed: mapState(["accountList"]),
@@ -223,6 +209,7 @@ export default {
   background: white;
 }
 .notes {
+  font-size: 14px;
   margin-right: auto;
   margin-left: 16px;
   color: #999999;

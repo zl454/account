@@ -38,6 +38,7 @@
 import Vue from "vue";
 import { Toast } from "vant";
 Vue.use(Toast);
+import dayjs from "dayjs";
 import { mapMutations, mapState } from "vuex";
 import Tags from "../components/money/Tags";
 import Panel from "../components/money/Panel";
@@ -87,7 +88,7 @@ export default {
         type: this.type,
         account: Number(this.account).toFixed(2),
         note: this.note,
-        date: new Date(),
+        date: dayjs().format(),
       });
       Toast({
         message: "添加成功",

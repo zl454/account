@@ -36,7 +36,8 @@ export default {
         this.selecteList.splice(index, 1);
         target.classList.remove("tags-bg");
       }
-      this.$emit("update-taglist", JSON.stringify(this.selecteList));
+      const list = this.selecteList.map((item) => item);
+      this.$emit("update-taglist", list);
     },
   },
 };
