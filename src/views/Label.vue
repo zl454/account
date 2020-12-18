@@ -11,9 +11,23 @@
     <div class="label-container-btn">
       <van-button
         type="info"
-        @click="addtags"
-      >新建标签</van-button>
-
+        @click="show=true"
+        text="新建标签"
+      />
+      <van-dialog
+        v-model="show"
+        title="新建标签"
+        @confirm="addtags"
+        show-cancel-button
+      >
+        <p style="padding:10px">
+          <label>请输入新标签：<input
+              type=""
+              name=""
+              v-model="value"
+            ></label>
+        </p>
+      </van-dialog>
     </div>
   </div>
 
@@ -26,23 +40,26 @@ Vue.use(Toast);
 import { mapState, mapMutations } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      show: false,
+      value: "",
+    };
   },
   methods: {
     ...mapMutations(["createTag"]),
     addtags() {
-      let value = prompt("    请输入新的标签", "");
-      if (!value) {
+      if (!this.value.trim()) {
         Toast({
-          message: "新建标签失败",
-          position: top
+          message: "请输入标签",
+          position: top,
         });
         return;
       }
-      this.createTag(value);
-    }
+      // 过滤首位空格，添加标签
+      this.createTag(this.value.trim());
+    },
   },
-  computed: mapState(["tagsList"])
+  computed: mapState(["tagsList"]),
 };
 </script>
 

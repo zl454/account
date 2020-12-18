@@ -73,6 +73,7 @@ import Tabs from "../components/Tabs";
 import CountList from "../components/CountList";
 import { mapState, mapMutations } from "vuex";
 import dayjs from "dayjs";
+import { Dialog } from "vant";
 export default {
   data() {
     return {
@@ -126,12 +127,16 @@ export default {
       );
     },
     delectedAccounts(date) {
-      let boolean = confirm("是否删除记录");
-      if (boolean) {
-        this.accountList.some((item, index) => {
-          item.date === date && this.deleteAccount(index);
-        });
-      }
+      Dialog.confirm({
+        title: "删除记录",
+        message: "是否删除记录？",
+      })
+        .then(() => {
+          this.accountList.some((item, index) => {
+            item.date === date && this.deleteAccount(index);
+          });
+        })
+        .catch(() => {});
     },
 
     total(data) {
