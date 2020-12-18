@@ -34,7 +34,7 @@
                 class="record"
                 v-for="i in item.data"
                 :key="i.date"
-                @click="delectedRecords(item.date)"
+                @click="delectedRecords(i.date)"
               >
                 <span>{{String(i.tags)}}</span>
                 <span class="notes">{{i.note}}</span>
@@ -79,7 +79,7 @@
                 class="record"
                 v-for="i in item.data"
                 :key="i.date"
-                @click="delectedRecords(item.date)"
+                @click="delectedRecords(i.date)"
               >
                 <span>{{String(i.tags)}}</span>
                 <span class="notes">{{i.note}}</span>
@@ -120,7 +120,7 @@ export default {
     this.init();
   },
   methods: {
-    ...mapMutations(["delectedRecord"]),
+    ...mapMutations(["deleteAccount"]),
     init() {
       this.accountList.forEach((item) => {
         // console.log(item);
@@ -155,11 +155,8 @@ export default {
     delectedRecords(date) {
       let boolean = confirm("是否删除记录");
       if (boolean) {
-        this.recordList.some((item, index) => {
-          if (item.date === date) {
-            this.delectedRecord(index);
-            return true;
-          }
+        this.accountList.some((item, index) => {
+          item.date === date && this.deleteAccount(index);
         });
       }
     },
@@ -206,6 +203,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   background: white;
+  cursor: pointer;
 }
 .notes {
   font-size: 14px;

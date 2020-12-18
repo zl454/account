@@ -16,9 +16,9 @@ export default new Vuex.Store({
       state.accountList.push(list)
       localStorage.setItem("accountList", JSON.stringify(state.accountList))
     },
-    delectedRecord(state, index) {//删除记录
-      state.recordList.splice(index, 1)
-      localStorage.setItem("recordList", JSON.stringify(state.recordList))
+    deleteAccount(state, index) {//删除记录
+      state.accountList.splice(index, 1)
+      localStorage.setItem("accountList", JSON.stringify(state.accountList))
       location.reload()
     },
     initialTag(state) {//初始化标签
