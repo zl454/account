@@ -9,7 +9,7 @@
         v-for="item in btn"
         :key="item[0]"
         :style="`grid-area:${item[0]}`"
-        @click="clickHandler"
+        @mouseup="clickHandler"
       >{{item[1]}}</button>
 
     </div>
