@@ -55,7 +55,8 @@ export default {
         });
         return;
       }
-      // 过滤首位空格，添加标签
+      // 过滤首位空格
+      // 添加标签
       this.createTag(this.value.trim());
     },
   },
