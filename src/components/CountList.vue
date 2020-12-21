@@ -43,6 +43,10 @@
   </div>
 </template>
 <script>
+import Vue from "vue";
+import { Collapse, CollapseItem } from "vant";
+Vue.use(Collapse);
+Vue.use(CollapseItem);
 import dayjs from "dayjs";
 export default {
   data() {

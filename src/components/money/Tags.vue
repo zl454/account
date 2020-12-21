@@ -11,6 +11,9 @@
 </template>
 
 <script>
+import Vue from "vue";
+import { tag } from "vant";
+Vue.use(tag);
 export default {
   data() {
     return {

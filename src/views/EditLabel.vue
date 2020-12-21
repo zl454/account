@@ -29,8 +29,10 @@
 
 <script>
 import Vue from "vue";
-import { Toast } from "vant";
+import { Toast, Field, NavBar } from "vant";
 Vue.use(Toast);
+Vue.use(Field);
+Vue.use(NavBar);
 import { mapMutations, mapState } from "vuex";
 export default {
   data() {

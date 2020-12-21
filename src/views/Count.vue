@@ -12,8 +12,10 @@
 <script>
 import Tabs from "../components/Tabs";
 import CountList from "../components/CountList";
+import Vue from "vue";
 import { mapState, mapGetters, mapMutations } from "vuex";
 import { Dialog } from "vant";
+Vue.use(Dialog);
 export default {
   data() {
     return {

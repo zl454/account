@@ -35,8 +35,11 @@
 
 <script>
 import Vue from "vue";
-import { Toast } from "vant";
+import { Toast, Button, Dialog, Cell } from "vant";
 Vue.use(Toast);
+Vue.use(Button);
+Vue.use(Dialog);
+Vue.use(Cell);
 import { mapState, mapMutations } from "vuex";
 export default {
   data() {

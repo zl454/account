@@ -8,7 +8,7 @@
     </transition>
     <van-tabbar
       fixed
-      id="nav"
+      class="tabbar"
       route
     >
       <van-tabbar-item
@@ -36,60 +36,66 @@
   </div>
 </template>
 
+<script>
+import Vue from "vue";
+import { Tabbar, TabbarItem } from "vant";
+Vue.use(Tabbar);
+Vue.use(TabbarItem);
+export default {};
+</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
-  color: #2c3e50;
-  overflow-x: hidden;
-}
-* {
+<style lang="scss">
+/* * {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
+} */
 
-#nav {
-  height: 60px;
-  width: 100%;
-  /* position: fixed;
-  bottom: 0; */
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: #f5f5f5;
-  border-top: 1px solid #cbcbcb;
-}
-.van-icon {
-  font-size: 24px;
-}
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* text-align: center; */
+  color: #2c3e50;
+  overflow-x: hidden;
 
-.van-tabbar-item {
-  flex-grow: 1;
-}
-.van-tabbar-item--active {
-  color: #409eff;
-  height: 100%;
-}
+  > .tabbar {
+    height: 8vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-top: 1px solid #cbcbcb;
+    > .van-icon {
+      font-size: 24px;
+    }
 
-/* 动画效果 */
-.v-enter {
-  opacity: 0;
-  transform: translateX(100%);
-}
-.v-leave-to {
-  opacity: 0;
-  transform: translateX(-100%);
-  /* position: absolute; */
-}
-.v-enter-active,
-.v-leave-active {
-  transition: all 0.3s ease;
+    > .van-tabbar-item {
+      flex-grow: 1;
+    }
+    > .van-tabbar-item--active {
+      color: #409eff;
+      height: 100%;
+    }
+  }
+  /* 动画过渡效果 */
+  // 元素插入前
+  .v-enter {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  // 元素离开过渡的结束状态
+  .v-leave-to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  .v-enter-active,
+  .v-leave-active {
+    transition: all 0.3s ease;
+  }
 }
 </style>

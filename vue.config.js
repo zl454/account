@@ -3,10 +3,10 @@ module.exports = {
   publicPath: "",
   configureWebpack: (config) => {
     config.resolve = { // 配置解析别名
-      extensions: ['.js', '.json', '.vue'],
+      extensions: ['.js', '.json', '.vue', '.scss'],
       alias: {
         '@': path.resolve(__dirname, './src'),
-        'components': path.resolve(__dirname, './src/components'),
+        'components': path.resolve(__dirname, './src/components/'),
         // 'common': path.resolve(__dirname, './src/common'),
         // 'api': path.resolve(__dirname, './src/api'),
         // 'router': path.resolve(__dirname, './src/router'),

@@ -10,6 +10,11 @@
 </template>
 
 <script>
+import Vue from "vue";
+import { Field, CellGroup } from "vant";
+Vue.use(Field);
+Vue.use(CellGroup);
+
 export default {
   data() {
     return { value: "" };
