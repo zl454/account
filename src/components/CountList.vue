@@ -25,7 +25,7 @@
             :key="i.date"
             @click="delectedAccount(i.date)"
           >
-            <span>{{String(i.tags)}}</span>
+            <span class="tags">{{String(i.tags)}}</span>
             <span class="notes">{{i.note}}</span>
             <span class="number">¥ {{i.account}}</span>
           </li>
@@ -94,6 +94,9 @@ export default {
   background: white;
   cursor: pointer;
   border-bottom: 1px dashed #ebede0;
+}
+.tags {
+  color: #009900;
 }
 .notes {
   font-size: 14px;

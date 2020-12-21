@@ -1,10 +1,19 @@
 <template>
   <div class="count-container">
     <Tabs @change-type="changeType" />
-    <CountList
-      @delected-account="delectedAccounts"
-      :lists="this.type==='收入'?initData[0]:initData[1]"
-    />
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+
+      <keep-alive>
+        <CountList
+          @delected-account="delectedAccounts"
+          :key="type"
+          :lists="type==='收入'?initData[0]:initData[1]"
+        />
+      </keep-alive>
+    </transition>
   </div>
 
 </template>
@@ -63,5 +72,13 @@ export default {
   height: 100%;
   margin-bottom: 64px;
   background-color: #f5f5f5;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter, .fade-leave-to
+/* .component-fade-leave-active for below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
