@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import Tabs from "../components/Tabs";
-import CountList from "../components/CountList";
+import Tabs from "components/Tabs";
+import CountList from "components/CountList";
 import Vue from "vue";
 import { mapState, mapGetters, mapMutations } from "vuex";
 import { Dialog } from "vant";
