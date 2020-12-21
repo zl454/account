@@ -8,7 +8,7 @@
     </transition>
     <van-tabbar
       fixed
-      class="tabbar"
+      id="tabbar"
       route
     >
       <van-tabbar-item
@@ -44,7 +44,7 @@ Vue.use(TabbarItem);
 export default {};
 </script>
 
-<style lang="scss">
+<style>
 /* * {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -60,42 +60,42 @@ export default {};
   /* text-align: center; */
   color: #2c3e50;
   overflow-x: hidden;
+}
+#tabbar {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-top: 1px solid #cbcbcb;
+}
+.van-icon {
+  font-size: 24px;
+}
 
-  > .tabbar {
-    height: 8vh;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f5f5f5;
-    border-top: 1px solid #cbcbcb;
-    > .van-icon {
-      font-size: 24px;
-    }
+.van-tabbar-item {
+  flex-grow: 1;
+}
+.van-tabbar-item--active {
+  color: #409eff;
+  height: 100%;
+}
 
-    > .van-tabbar-item {
-      flex-grow: 1;
-    }
-    > .van-tabbar-item--active {
-      color: #409eff;
-      height: 100%;
-    }
-  }
-  /* 动画过渡效果 */
-  // 元素插入前
-  .v-enter {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  // 元素离开过渡的结束状态
-  .v-leave-to {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
+/* 动画过渡效果 */
+/*  元素插入前 */
+.v-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+/*  元素离开过渡的结束状态 */
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
 
-  .v-enter-active,
-  .v-leave-active {
-    transition: all 0.3s ease;
-  }
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.3s ease;
 }
 </style>

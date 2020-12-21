@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 // import Vant from 'vant';
 import 'vant/lib/index.css';
-import '@/assets/css/index.scss'
+import '@/assets/css/index.css'
 
 // Vue.use(Vant);
 // 阻止生产模式消息

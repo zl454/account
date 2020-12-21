@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Accounts from '../views/Accounts.vue'
-import Count from '../views/Count.vue'
-import Label from '../views/Label.vue'
-import EditLabel from '../views/EditLabel.vue'
-import QRcode from '../views/QRcode.vue'
+import Accounts from 'views/Accounts.vue'
+import Count from 'views/Count.vue'
+import Label from 'views/Label.vue'
+import EditLabel from 'views/EditLabel.vue'
+import QRcode from 'views/QRcode.vue'
 
 Vue.use(VueRouter)
 
