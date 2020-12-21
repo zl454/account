@@ -3,7 +3,6 @@
     <transition mode="out-in">
       <keep-alive>
         <router-view />
-
       </keep-alive>
     </transition>
     <van-tabbar
