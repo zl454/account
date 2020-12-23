@@ -11,7 +11,7 @@
     <div class="label-container-btn">
       <van-button
         type="info"
-        @click="show=true"
+        @click="showDialog"
         text="新建标签"
       />
       <van-dialog
@@ -22,6 +22,7 @@
       >
         <p style="padding:20px">
           <input
+            ref="input"
             type=""
             name=""
             v-model="value"
@@ -50,6 +51,12 @@ export default {
   },
   methods: {
     ...mapMutations(["createTag"]),
+    showDialog() {
+      this.show = true;
+      setTimeout(() => {
+        this.$refs.input?.focus();
+      }, 1000);
+    },
     addtags() {
       if (!this.value.trim()) {
         Toast({

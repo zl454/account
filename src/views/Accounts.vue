@@ -20,10 +20,10 @@ import { Toast } from "vant";
 Vue.use(Toast);
 import dayjs from "dayjs";
 import { mapMutations, mapState } from "vuex";
-import Tags from "components/money/Tags";
+import Tags from "components/Tags";
 import Tabs from "components/Tabs";
 import Note from "components/Note";
-import Panel from "components/money/Panel";
+import Panel from "components/Panel";
 export default {
   data() {
     return {
