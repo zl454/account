@@ -5,80 +5,25 @@
         <router-view />
       </keep-alive>
     </transition>
-    <van-tabbar
-      fixed
-      id="tabbar"
-      route
-    >
-      <van-tabbar-item
-        replace
-        to="/"
-        icon="records"
-      >
-        记账
-      </van-tabbar-item>
-      <van-tabbar-item
-        replace
-        to="/label"
-        icon="label-o"
-      >
-        标签
-      </van-tabbar-item>
-      <van-tabbar-item
-        replace
-        to="/count"
-        icon="bar-chart-o"
-      >
-        统计
-      </van-tabbar-item>
-    </van-tabbar>
+    <Tabbar />
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import { Tabbar, TabbarItem } from "vant";
-Vue.use(Tabbar);
-Vue.use(TabbarItem);
-export default {};
+import Tabbar from "components/Tabbar";
+export default {
+  components: {
+    Tabbar,
+  },
+};
 </script>
 
 <style>
-/* * {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-} */
-
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2c3e50;
   overflow-x: hidden;
-}
-#tabbar {
-  height: 60px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f5f5f5;
-  border-top: 1px solid #cbcbcb;
-}
-.van-icon {
-  font-size: 24px;
-}
-
-.van-tabbar-item {
-  flex-grow: 1;
-}
-.van-tabbar-item--active {
-  color: #409eff;
-  height: 100%;
 }
 
 /* 动画过渡效果 */

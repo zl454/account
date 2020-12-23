@@ -63,12 +63,12 @@ export default {
           message: "请输入金额",
           position: top,
         });
+
       if (!this.selecteList.length)
         return Toast({
           message: "请至少选中一个标签",
           position: top,
         });
-
       this.addAccount({
         tags: this.selecteList,
         type: this.type,
@@ -80,6 +80,7 @@ export default {
         message: "添加成功",
         position: top,
       });
+
       this.account = "0";
       this.note = "";
       this.key += 1;
