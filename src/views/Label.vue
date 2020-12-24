@@ -55,7 +55,7 @@ export default {
       this.show = true;
       setTimeout(() => {
         this.$refs.input?.focus();
-      }, 1000);
+      }, 100);
     },
     addtags() {
       if (!this.value.trim()) {

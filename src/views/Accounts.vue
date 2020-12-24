@@ -1,16 +1,18 @@
 <template>
   <div class="accounts-container">
+    <Tabs @change-type="changeType" />
     <Tags
       :key="key"
       :tagsList="tagsList"
       @update-taglist="updateTagList"
     />
     <Note @change-note="changeNote" />
-    <Tabs @change-type="changeType" />
-    <Panel
-      :account="account"
-      @change-account="changeAccount"
-    />
+    <div class="panel-container">
+      <Panel
+        :account="account"
+        @change-account="changeAccount"
+      />
+    </div>
   </div>
 </template>
 
@@ -108,7 +110,12 @@ export default {
   box-sizing: border-box;
 }
 
-.accounts-container {
+/* .accounts-container {
+  position: fixed;
+  bottom: 60px;
+  width: 100%;
+} */
+.panel-container {
   position: fixed;
   bottom: 60px;
   width: 100%;
