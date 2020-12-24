@@ -4,7 +4,8 @@
       round
       v-for="(item, index) in tagsList"
       :key="index"
-      @click="updateSelecteList"
+      :class="{'tags-bg':index===current}"
+      @click="toggleTag(index,$event)"
     >{{item}}</van-tag>
 
   </div>
@@ -17,7 +18,9 @@ Vue.use(tag);
 export default {
   data() {
     return {
-      selecteList: [],
+      current: "",
+      isActive: false,
+      tag: "",
     };
   },
   props: {
@@ -26,21 +29,9 @@ export default {
     },
   },
   methods: {
-    updateSelecteList(e) {
-      //选中标签，获取标签列表
-      const target = e.target;
-      if (!target.selected) {
-        target.selected = true;
-        this.selecteList.push(target.textContent);
-        target.classList.add("tags-bg");
-      } else {
-        target.selected = false;
-        let index = this.selecteList.indexOf(target.textContent);
-        this.selecteList.splice(index, 1);
-        target.classList.remove("tags-bg");
-      }
-      const list = this.selecteList.map((item) => item);
-      this.$emit("update-taglist", list);
+    toggleTag(index, event) {
+      this.current = index;
+      this.$emit("update-taglist", event.target.textContent);
     },
   },
 };

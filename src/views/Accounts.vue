@@ -7,12 +7,11 @@
       @update-taglist="updateTagList"
     />
     <Note @change-note="changeNote" />
-    <div class="panel-container">
-      <Panel
-        :account="account"
-        @change-account="changeAccount"
-      />
-    </div>
+    <Panel
+      class="panel-container"
+      :account="account"
+      @change-account="changeAccount"
+    />
   </div>
 </template>
 
